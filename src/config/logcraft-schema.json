@@ -1,0 +1,235 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "LogCraft Config",
+    "description": "Configuration schema for LogCraft logging library",
+    "type": "object",
+    "properties": {
+        "hostname": {
+            "type": "string",
+            "description": "The hostname if you are using the SYSLOG log format.",
+            "default": "localhost"
+        },
+        "logLevel": {
+            "type": "string",
+            "description": "The minimum log level.",
+            "enum": ["DEBUG", "INFO", "WARN", "ERROR"],
+            "default": "INFO"
+        },
+        "logToConsole": {
+            "type": "boolean",
+            "description": "Whether to log to the console.",
+            "default": true
+        },
+        "enableColors": {
+            "type": "boolean",
+            "description": "Enable/Disable color coding for the console for better readability.",
+            "default": true
+        },
+        "insightsEnabled": {
+            "type": "boolean",
+            "description": "An option to enable or disable insights collection",
+            "default": false
+        },
+        "insightFrequencyType": {
+            "type": "string",
+            "description": "The frequenct type to use.",
+            "enum": ["EVERY_UNIT", "PERIODICALLY", "AFTER_TOTAL_LOGS"],
+            "default": "EVERY_UNIT"
+        },
+        "insightFrequency": {
+            "type": "string",
+            "description": "The frequency of when to generate insights. Examples: 'every 2 days', 'weekly', '1000'.",
+            "default": "every 7 days"
+        },
+        "insightTypes": {
+            "type": "array",
+            "description": "Insight types to track.",
+            "items": {
+                "type": "string",
+                "enum": ["ERROR_RATE", "LOG_LEVELS", "RESPONSE_TIMES"]
+            },
+            "default": ["ERROR_RATE", "LOG_LEVELS", "RESPONSE_TIMES"]
+        },
+        "insightRetentionPeriod": {
+            "type": "integer",
+            "description": "The period in which to keep insights for in days (0 for indefinitely).",
+            "minimum": 0,
+            "default": 30
+        },
+        "insightThresholds": {
+            "type": "object",
+            "description": "Insight thresholds for when to alert if a value exceeds a threshold.",
+            "properties": {
+                "errorRate": {
+                    "type": "number",
+                    "description": "Alert if the error rate exceeds this percentage (e.g., 0.05 for 5%).",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "default": 0.05
+                },
+                "warningRate": {
+                    "type": "number",
+                    "description": "Alert if the warning reate exceeds this percentage (e.g., 0.05 for 5%).",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "default": 0.05
+                }
+            }
+        },
+        "insightAlerting": {
+            "type": "boolean",
+            "description": "Enable alerting when thresholds are crossed.",
+            "default": true
+        },
+        "insightAggregations": {
+            "type": "array",
+            "description": "Insight aggregation types to enable.",
+            "items": {
+                "type":"string",
+                "enum": ["AVERAGE", "SUM", "COUNT", "MIN", "MAX", "MEDIAN", "MODE", "STANDARD_DEVIATION", "PERCENTILE", "RANGE", "ROLLING_WINDOW", "VARIANCE", "SUM_OF_SQUARES"]
+            },
+            "default": ["AVERAGE", "MAX"]
+        },
+        "insightDestination": {
+            "type": "array",
+            "description": "The destination(s) for the insights.",
+            "items": {
+                "type": "string",
+                "enum": ["ANALYTICS_SERVICE", "FILE", "DATABASE"]
+            },
+            "default": ["FILE"]
+        },
+        "debug": {
+            "type": "boolean",
+            "description": "Enable/Disable debug mode.",
+            "default": false
+        },
+        "analyticsService": {
+            "type": "object",
+            "description": "Analytics service configurations",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Enable/Disable sending data to an analytics service.",
+                    "default": false
+                },
+                "url": {
+                    "type": "string",
+                    "description": "URL to the analytics service API endpoint.",
+                    "default": ""
+                },
+                "apiKey": {
+                    "type": "string",
+                    "description": "API key for authenticating with the analytics service API endpoint.",
+                    "default": ""
+                }
+            }
+        },
+        "database": {
+            "type": "object",
+            "description": "Database configurations for storing insights.",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Enable/Disable sending data to a database.",
+                    "default": false
+                },
+                "databaseType": {
+                    "type": "string",
+                    "description": "The database type to use to store insights.",
+                    "enum": ["MONGODB", "MYSQL", "MSSQL", "POSTGRESQL", "SQLITE"],
+                    "default": "MYSQL"
+                },
+                "hostname": {
+                    "type": "string",
+                    "description": "The hostname of the database server (ignore this if using SQLite).",
+                    "default": "localhost"
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "The port number of the database server (ignore this if using SQLite).",
+                    "default": 3306
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the database to store the insights in.",
+                    "default": "insights"
+                },
+                "user": {
+                    "type": "string",
+                    "description": "The user with permissions to the database.",
+                    "default": ""
+                },
+                "password": {
+                    "type": "string",
+                    "description": "The password for the user with permissions to the database.",
+                    "default": ""
+                }
+            }
+        },
+        "file": {
+            "type": "object",
+            "description": "The log directory and file settings.",
+            "properties": {
+                "logDir": {
+                    "type": "string",
+                    "description": "The directory where logs should be stored.",
+                    "default": "./logs"
+                },
+                "logFileName": {
+                    "type": "string",
+                    "description": "The name of the log file.",
+                    "default": "info.log"
+                },
+                "logFormat": {
+                    "type": "string",
+                    "description": "The log format.",
+                    "enum": ["JSON", "CSV", "PLAINTEXT", "XML", "YAML", "SYSLOG", "LOGFMT", "MARKDOWN", "HTML", "BINARY", "NDJSON"],
+                    "default": "JSON"
+                },
+                "logRotation": {
+                    "type": "boolean",
+                    "description": "Enable/disable log rotation.",
+                    "default": true
+                },
+                "maxLogFileSize": {
+                    "type": "integer",
+                    "description": "The max log file size in MB (only valid if 'logRotation' is enabled.",
+                    "minimum": 1,
+                    "default": 10
+                },
+                "logRotationCount": {
+                    "type": "integer",
+                    "description": "The total number of logs to keep stored.",
+                    "minimum": 1,
+                    "default": 5
+                }
+            }
+        },
+        "thirdPartyService": {
+            "type": "object",
+            "description": "Third party logging service integration configurations",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Enable/Disable sending logs to a 3rd party logging service.",
+                    "default": false
+                },
+                "url": {
+                    "type": "string",
+                    "description": "The URL address to the logging service API endpoint.",
+                    "default": ""
+                },
+                "apiKey": {
+                    "type": "string",
+                    "description": "The API key for the logging service API.",
+                    "default": ""
+                }
+            }
+        }
+    },
+    "required": [
+        "logLevel",
+        "logToConsole"
+    ]
+}

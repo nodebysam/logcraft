@@ -1,0 +1,39 @@
+{
+  "name": "logcraft",
+  "version": "1.0.0",
+  "description": "LogCraft is a smart and customizable logging library for Node.js. It offers powerful features like log level filtering, structured outputs, color-coded console logs, and environment-specific configurations, making it easy to debug, monitor, and gain insights into your application.",
+  "main": "src/nodecraft.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodebysam/logcraft.git"
+  },
+  "keywords": [
+    "logging",
+    "nodejs",
+    "log-levels",
+    "console",
+    "file-output",
+    "log-craft",
+    "debugging"
+  ],
+  "author": "Sam Wilcox <wilcox.sam@gmail.com>",
+  "license": "GPL-3.0-only",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nodebysam/logcraft/issues"
+  },
+  "homepage": "https://github.com/nodebysam/logcraft#readme",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "chalk": "^4.1.2",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "ava": "^6.2.0",
+    "sinon": "^19.0.2"
+  }
+}

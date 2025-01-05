@@ -1,0 +1,8 @@
+{
+    "json.schemas": [
+        {
+            "fileMatch": ["logcraft.config.json"],
+            "url": "./src/config/logcraft-schema.json"
+        }
+    ]
+}

@@ -1,0 +1,54 @@
+{
+    "hostname": "localhost",
+    "logLevel": "INFO",
+    "logToConsole": true,
+    "enableColors": true,
+    "insightsEnabled": false,
+    "insightFrequencyType": "EVERY_UNIT",
+    "insightFrequency": "every 7 days",
+    "insightTypes": [
+        "ERROR_RATE",
+        "LOG_LEVELS",
+        "RESPONSE_TIMES"
+    ],
+    "insightRetentionPeriod": 30,
+    "insightThresholds": {
+        "errorRate": 0.05,
+        "warningRate": 0.05
+    },
+    "insightAlerting": true,
+    "insightAggregations": [
+        "AVERAGE",
+        "MAX"
+    ],
+    "insightDestination": [
+        "FILE"
+    ],
+    "debug": false,
+    "analyticsService": {
+        "enabled": false,
+        "url": "",
+        "apiKey": ""
+    },
+    "database": {
+        "enabled": false,
+        "databaseType": "MYSQL",
+        "hostname": "localhost",
+        "port": 3306,
+        "user": "",
+        "password": ""
+    },
+    "file": {
+        "logDir": "./logs",
+        "logFileName": "info.log",
+        "logFormat": "JSON",
+        "logRotation": true,
+        "logRotationCount": 5,
+        "maxLogFileSize": 10
+    },
+    "thirdPartyService": {
+        "enabled": false,
+        "apiKey": "",
+        "url": ""
+    }
+}
